@@ -3,7 +3,6 @@ package jp.gr.java_conf.onkohdondo.kareoke.util;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 
 public class Line {
 	public ArrayList<Node> node;
@@ -34,24 +33,31 @@ public class Line {
 		return node.toString();
 	}
 	
+	@Deprecated
 	public String getString(){
 		String ret="";
-		for(Node l : node) ret+=l.getStr();
+		for(Node l : node) ret+=l.getMain();
 		return ret;
 	}
 	
-	public double getWidth(PApplet p2, PFont font,double time){
+	public double getWidth(PApplet p2, double time){
 		double ret=0;
-		p2.textFont(font);
 		for(Node node:this.node){
 			if(node.getEnd()<=time){
-				ret+=p2.textWidth(node.getStr());
+				ret+=node.getWidth(p2);
 			}else{
-				double plus=p2.textWidth(node.getStr())*
+				double plus=node.getWidth(p2)*
 						(time-node.getStart())/node.getLength();
 				if(plus>0) ret+=plus;
 			}
 		}
+		return ret;
+	}
+
+	public double getWidth(PApplet p2) {
+		double ret=0;
+		for(Node node:this.node)
+			ret+=node.getWidth(p2);
 		return ret;
 	}
 }

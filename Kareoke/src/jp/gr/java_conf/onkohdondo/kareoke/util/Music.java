@@ -227,11 +227,11 @@ public class Music {
 					}else{
 						target.node.get(target.node.size()-1).setStr(
 							target.node.get(target.node.size()-1)
-							.getStr()+data.charAt(i));
+							.getMain()+data.charAt(i));
 					}
 				}else{
 					target.node.add(new Node(
-							start, min/all, data.charAt(i)+""));
+							start, min/all, data.charAt(i)+"", this));
 					counted=true;
 					start+=min/all;
 				}

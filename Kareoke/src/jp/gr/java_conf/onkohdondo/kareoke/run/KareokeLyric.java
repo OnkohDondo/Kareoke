@@ -4,6 +4,7 @@ import java.rmi.UnexpectedException;
 
 import jp.gr.java_conf.onkohdondo.kareoke.util.Line;
 import jp.gr.java_conf.onkohdondo.kareoke.util.Music;
+import jp.gr.java_conf.onkohdondo.kareoke.util.Node;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -42,50 +43,62 @@ public class KareokeLyric implements Mode{
 			}
 		}else{
 			for(int i=0;i<displayedLine.length;i++){
+				DisplayedLine thisDLine=displayedLine[i];
+				Line thisLine=thisDLine.getLine();
 				if(displayedLine[i].isDisplayed()){
 					double x=0;
 					p.textAlign(PConstants.LEFT);
 					p.textFont(music.kareokeFontB);
-					if(displayedLine[i].getLine().getLocation()==
-							Line.LEFT){
+					if(thisLine.getLocation()==Line.LEFT){
 //						PApplet.println(displayedLine[i].
 //								getLine().getString()+"\t"+Line.LEFT);
 						x=0;
-					}if(displayedLine[i].getLine().getLocation()==
-							Line.CENTER){
-						x=p.width/2-p.textWidth(
-								displayedLine[i].getLine().getString())/2;
-					}if(displayedLine[i].getLine().getLocation()==
-							Line.RIGHT){
-						x=p.width-p.textWidth(
-								displayedLine[i].getLine().getString());
+					}if(thisLine.getLocation()==Line.CENTER){
+						x=p.width/2-thisLine.getWidth(p)/2;
+//						x=p.width/2-p.textWidth(
+//								displayedLine[i].getLine().getString())/2;
+					}if(thisLine.getLocation()==Line.RIGHT){
+						x=p.width-thisLine.getWidth(p);
+//						x=p.width-p.textWidth(
+//								displayedLine[i].getLine().getString());
 					}
-					p.fill(255);
-					p.text(displayedLine[i].getLine().getString(),
-							(float) x,(i+1)*displayedLine[i].
-							getGraphics(music,p.millis()).height-40);
-					p.textFont(music.kareokeFontT);
-					p.fill(0);
-					p.text(displayedLine[i].getLine().getString(),
-							(float) x,(i+1)*displayedLine[i].
-							getGraphics(music, p.millis()).height-40);
-					p.textAlign(PConstants.CENTER);
-					for(int l=0,j=0,k=0;
-							l<displayedLine[i].getLine().node.size();l++){
-						j=(int) p.textWidth(displayedLine[i].getLine().
-								node.get(l).getStr());
-						p.text(displayedLine[i].getLine().node.get(i).
-								getRuby(),k+j/2,(i+1)*displayedLine[i].
-								getGraphics(music, p.millis()).height-90);
-						k+=j;
+					//TODO p.heightは,各行に即したy座標。
+					double nowX=x;
+					for(int j=0,thisNodeWidth=0;j<thisLine.node.size();j++){
+						Node thisNode=thisLine.node.get(j);
+						thisNodeWidth=(int) thisNode.getWidth(p);
+						double inset,offset,base;
+						inset=thisNode.getMainInset(p);
+						offset=Kareoke.MAINOFFSET;
+						base=(i+1)*displayedLine[i].
+								getGraphics(music,p.millis()).height;
+						p.fill(255);
+						p.textFont(music.kareokeFontT,music.kareokeSizeB);
+						p.text(thisNode.getMain(),(float) (nowX+inset),
+								(float) (base-offset));
+						p.fill(0);
+						p.textFont(music.kareokeFontB,music.kareokeSizeB);
+						p.text(thisNode.getMain(),(float) (nowX+inset),
+								(float) (base-offset));
+						inset=thisNode.getRubyInset(p);
+						offset+=music.kareokeSizeB;
+						p.fill(255);
+						p.textFont(music.kareokeFontT,music.kareokeSizeS);
+						p.text(thisNode.getRuby(),(float) (nowX+inset),
+								(float) (base-offset));
+						p.fill(0);
+						p.textFont(music.kareokeFontB,music.kareokeSizeS);
+						p.text(thisNode.getRuby(),(float) (nowX+inset),
+								(float) (base-offset));
+						nowX+=thisNodeWidth;
 					}
-					p.image(displayedLine[i].getGraphics(music, p.millis()),
-							(float) x,i*displayedLine[i].
+					p.image(thisDLine.getGraphics(music, p.millis()),
+							(float) x,i*thisDLine.
 							getGraphics(music, p.millis()).height);
-					if(displayedLine[i].getEnd()+1000<p.millis()){
-						displayedLine[i].setDisplayed(false);
-						displayedLine[i].setLine(null);
-						displayedLine[i].setLastDeleted(p.millis());
+					if(thisDLine.getEnd()+1000<p.millis()){
+						thisDLine.setDisplayed(false);
+						thisDLine.setLine(null);
+						thisDLine.setLastDeleted(p.millis());
 					}
 				}
 			}

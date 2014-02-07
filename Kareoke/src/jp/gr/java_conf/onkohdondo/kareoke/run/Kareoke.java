@@ -8,6 +8,8 @@ public class Kareoke extends PApplet {
 	
 	private Mode mode;
 	
+	public static int MAINOFFSET=40;
+	
 	public static void main(String[] args) {
 		PApplet.main(Kareoke.class.getName());
 	}
