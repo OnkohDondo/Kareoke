@@ -8,13 +8,13 @@ import jp.gr.java_conf.onkohdondo.kareoke.util.Node;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-public class KareokeLyric implements Mode{
+public class KareokeLyricMode implements Mode{
 	private Music music;
 	private PApplet p;
 	
 	private final DisplayedLine[] displayedLine;
 	
-	public KareokeLyric(PApplet p){
+	public KareokeLyricMode(PApplet p){
 		try {
 			music=new Music("600.txt");
 		} catch (UnexpectedException e) {
@@ -27,7 +27,7 @@ public class KareokeLyric implements Mode{
 	}
 	
 	public void draw() {
-		PApplet.println((int)(p.millis()/(60000.0/186*4)));
+//		PApplet.println((int)(p.millis()/(60000.0/186*4)));
 		p.background(128);
 		boolean somethingDisplayed=false;
 		for(DisplayedLine b:displayedLine)

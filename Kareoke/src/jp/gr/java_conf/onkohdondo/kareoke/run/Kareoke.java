@@ -16,7 +16,7 @@ public class Kareoke extends PApplet {
 	
 	public void setup(){
 		size(640,480);
-		mode=new KareokeLyric(this);
+		mode=new KareokeLyricMode(this);
 		
 		Minim minim=new Minim(this);
 		minim.loadFile("˜Z’›”N‚Æˆê–é•¨Œê.mp3",2048);

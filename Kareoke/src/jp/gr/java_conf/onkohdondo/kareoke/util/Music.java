@@ -218,6 +218,18 @@ public class Music {
 				if(kakko==2) kakko=0;
 				else throw new UnexpectedException("‚¤‚¬‚á‚ ‚ ‚ ‚ ‚ ‚ ‚ ");
 				break;
+			case '*':
+				if(counted){
+					target.node.get(target.node.size()-1).setLength(
+							target.node.get(target.node.size()-1)
+							.getLength()+min/all);
+					target.node.get(target.node.size()-1).addTiming(-1);
+				}else{
+					target.node.get(target.node.size()-1).addTiming(start);
+					counted=true;
+					start+=min/all;
+				}
+				break;
 			default:
 				if(counted){
 					if(kakko==2){

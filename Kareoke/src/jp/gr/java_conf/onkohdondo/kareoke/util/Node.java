@@ -1,5 +1,7 @@
 package jp.gr.java_conf.onkohdondo.kareoke.util;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 public class Node {
@@ -8,6 +10,7 @@ public class Node {
 	private String str;
 	private String ruby;
 	private Music parent;
+	private ArrayList<Double> timing;
 	
 	public Node(double arg0, double arg1, String arg2,Music arg3){
 		start=arg0;
@@ -15,6 +18,8 @@ public class Node {
 		str=arg2;
 		parent=arg3;
 		ruby="";
+		timing=new ArrayList<Double>();
+		timing.add(start);
 	}
 	
 	public double getStart(){
@@ -44,7 +49,7 @@ public class Node {
 	public String toString(){
 		return (int)(start/(60000.0/186*4)*16)/16.0+"->"+
 				(int)(length/(60000.0/186*4)*16)/16.0+" "+str+
-				(isRuby()?"<"+ruby+">":"");
+				(isRuby()?"<"+ruby+">":"")+timing;
 	}
 
 	public String getRuby() {
@@ -86,4 +91,20 @@ public class Node {
 		p2.textFont(parent.kareokeFontB,parent.kareokeSizeS);
 		return p2.textWidth(ruby);
 	}
+	
+	public ArrayList<Double> getTiming(){
+		return timing;
+	}
+	
+	public double getTiming(int arg0){
+		if(arg0==timing.size()){
+			return getEnd();
+		}
+		return timing.get(arg0);
+	}
+	
+	public void addTiming(double arg0){
+		timing.add(arg0);
+	}
+	
 }
