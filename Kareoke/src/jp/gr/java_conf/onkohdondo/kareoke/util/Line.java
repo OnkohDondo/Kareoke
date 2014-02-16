@@ -51,7 +51,6 @@ public class Line {
 //				double plus=0;
 				int startIndex=0,endIndex=0;
 //				boolean ended=false;
-				boolean mustDisplay = node.getMain().equals("è≠");
 				for(int i=0;i<=node.getTiming().size();i++){
 					if(node.getTiming(i)==-1) continue;
 					double next=node.getTiming(i);
@@ -68,6 +67,8 @@ public class Line {
 //				if(!ended) startIndex=endIndex=node.getTiming().size();
 				double start=node.getTiming(startIndex),
 						end=node.getTiming(endIndex);
+				if(node.getMain().equals("éá"))
+				PApplet.println(node.getMain()+"\t"+startIndex+"\t"+endIndex);
 				plus=node.getWidth(p2)*startIndex/node.getTiming().size()+
 						node.getWidth(p2)*(endIndex-startIndex)/
 						node.getTiming().size()*(time-start)/(end-start);

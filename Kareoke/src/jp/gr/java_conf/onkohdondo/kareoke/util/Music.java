@@ -220,11 +220,11 @@ public class Music {
 				break;
 			case '*':
 				if(counted){
+					target.node.get(target.node.size()-1).addTiming(-1);
+				}else{
 					target.node.get(target.node.size()-1).setLength(
 							target.node.get(target.node.size()-1)
 							.getLength()+min/all);
-					target.node.get(target.node.size()-1).addTiming(-1);
-				}else{
 					target.node.get(target.node.size()-1).addTiming(start);
 					counted=true;
 					start+=min/all;

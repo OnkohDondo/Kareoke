@@ -47,9 +47,12 @@ public class Node {
 	}
 	
 	public String toString(){
-		return (int)(start/(60000.0/186*4)*16)/16.0+"->"+
-				(int)(length/(60000.0/186*4)*16)/16.0+" "+str+
-				(isRuby()?"<"+ruby+">":"")+timing;
+//		return (int)(start/(60000.0/186*4)*16)/16.0+"->"+
+//				(int)(length/(60000.0/186*4)*16)/16.0+" "+str+
+//				(isRuby()?"<"+ruby+">":"")+timing;
+		return start+"->"+
+			length+" "+str+
+			(isRuby()?"<"+ruby+">":"")+timing;
 	}
 
 	public String getRuby() {
