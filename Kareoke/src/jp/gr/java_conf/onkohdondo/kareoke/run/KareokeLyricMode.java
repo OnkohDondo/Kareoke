@@ -16,7 +16,7 @@ public class KareokeLyricMode implements Mode{
 	
 	public KareokeLyricMode(PApplet p){
 		try {
-			music=new Music("kouka.txt");
+			music=new Music("600.txt");
 		} catch (UnexpectedException e) {
 			e.printStackTrace();
 		}
